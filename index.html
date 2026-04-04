@@ -97,16 +97,16 @@
       display: inline-block; font-size: 12px; font-weight: 600;
       padding: 4px 10px; border-radius: 999px; margin-bottom: 10px;
     }
-    .tag-dinner   { background: #f7efe8; color: #8a4a2f; }
-    .tag-chicken  { background: #e8f0f7; color: #1a4a6e; }
+    .tag-chicken    { background: #e8f0f7; color: #1a4a6e; }
+    .tag-beef       { background: #f7efe8; color: #8a4a2f; }
+    .tag-pork       { background: #fbeaf0; color: #72243e; }
+    .tag-lamb       { background: #f7efe8; color: #854f0b; }
+    .tag-seafood    { background: #e1f5ee; color: #0f6e56; }
     .tag-vegetarian { background: #eaf3de; color: #3b6d11; }
-    .tag-breakfast { background: #faeeda; color: #854f0b; }
-    .tag-seafood  { background: #e1f5ee; color: #0f6e56; }
-    .tag-pasta    { background: #fbeaf0; color: #72243e; }
-    .tag-soup     { background: #eeedfe; color: #3c3489; }
-    .tag-salad    { background: #eaf3de; color: #27500a; }
-    .tag-dessert  { background: #fbeaf0; color: #993556; }
-    .tag-snack    { background: #f7efe8; color: #854f0b; }
+    .tag-vegan      { background: #eaf3de; color: #27500a; }
+    .tag-egg        { background: #faeeda; color: #854f0b; }
+    .tag-tofu       { background: #eeedfe; color: #3c3489; }
+    .tag-turkey     { background: #f7efe8; color: #8a4a2f; }
     .card-title { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
     .card-meta { font-size: 13px; color: var(--muted); }
 
@@ -131,6 +131,7 @@
 
     <div class="controls">
       <input id="search" type="text" placeholder="Search recipes..." oninput="render()" />
+
       <div class="filters" id="filters"></div>
     </div>
 
@@ -144,18 +145,19 @@
     // Each recipe needs:
     //   title   — display name
     //   file    — filename inside recipe_htmls/ folder
-    //   tag     — category (dinner, chicken, vegetarian, breakfast,
-    //             seafood, pasta, soup, salad, dessert, snack)
+    //   protein — main protein (chicken, beef, pork, lamb, seafood,
+    //             vegetarian, vegan, egg, tofu, turkey)
     //   time    — cook time as a string
     //   serves  — number of servings
+    //   cals    — calories per serve
     // ============================================================
     const recipes = [
-      { title: "One Pan Butter Chicken", file: "one_pan_butter_chicken_recipe_app.html", tag: "dinner", time: "2 hr 30 min", serves: 4, cals: 750 },
-      // { title: "Pasta Carbonara", file: "pasta_carbonara.html", tag: "pasta", time: "30 min", serves: 2, cals: 620 },
-      // { title: "Prawn Tacos", file: "prawn_tacos.html", tag: "seafood", time: "20 min", serves: 3, cals: 410 },
+      { title: "One Pan Butter Chicken", file: "one_pan_butter_chicken_recipe_app.html", protein: "chicken", time: "2 hr 30 min", serves: 4, cals: 750 },
+      // { title: "Pasta Carbonara", file: "pasta_carbonara.html", protein: "egg", time: "30 min", serves: 2, cals: 620 },
+      // { title: "Prawn Tacos", file: "prawn_tacos.html", protein: "seafood", time: "20 min", serves: 3, cals: 410 },
     ];
 
-    const allTags = ["all", ...new Set(recipes.map(r => r.tag))];
+    const allTags = ["all", ...new Set(recipes.map(r => r.protein))];
     let activeTag = "all";
 
     function renderFilters() {
@@ -172,7 +174,7 @@
       const q = document.getElementById("search").value.toLowerCase();
       const filtered = recipes.filter(r => {
         const matchQ = !q || r.title.toLowerCase().includes(q);
-        const matchT = activeTag === "all" || r.tag === activeTag;
+        const matchT = activeTag === "all" || r.protein === activeTag;
         return matchQ && matchT;
       });
       document.getElementById("count").textContent =
@@ -180,7 +182,7 @@
       document.getElementById("grid").innerHTML = filtered.length
         ? filtered.map(r => `
             <a class="card" href="recipe_htmls/${r.file}">
-              <span class="card-tag tag-${r.tag}">${r.tag}</span>
+              <span class="card-tag tag-${r.protein}">${r.protein}</span>
               <p class="card-title">${r.title}</p>
               <p class="card-meta">${r.time} &nbsp;·&nbsp; ${r.serves} serves &nbsp;·&nbsp; ${r.cals} kcal</p>
             </a>`).join("")
