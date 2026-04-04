@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sheet Pan Adana Kebabs with Cacik & Sumac Onion Salad</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cream:      #fdf8f2;
+      --cream2:     #f7f0e6;
+      --cream3:     #efe4d4;
+      --sand:       #e2d5c3;
+      --spice:      #c2622a;
+      --spice-lt:   #f5e8df;
+      --spice-mid:  #e8a882;
+      --turmeric:   #e8a020;
+      --turmeric-lt:#fef3dc;
+      --sage:       #7a9e7e;
+      --sage-lt:    #eaf2eb;
+      --text:       #2b1f14;
+      --text-mid:   #6b5440;
+      --text-lt:    #9c836a;
+      --white:      #ffffff;
+      --shadow-sm:  0 2px 8px rgba(80,40,10,.07);
+      --shadow:     0 8px 32px rgba(80,40,10,.10);
+      --shadow-lg:  0 20px 60px rgba(80,40,10,.13);
+      --r-sm: 14px;
+      --r:    22px;
+      --r-lg: 32px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      min-height: 100vh;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: radial-gradient(circle, var(--sand) 1px, transparent 1px);
+      background-size: 28px 28px;
+      opacity: 0.35;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .app {
+      position: relative;
+      z-index: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 32px 20px 56px;
+    }
+    .hero {
+      background: var(--white);
+      border-radius: var(--r-lg);
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+      border: 1px solid var(--cream3);
+    }
+    .hero-top {
+      padding: 36px 36px 28px;
+      background: linear-gradient(135deg, #fffcf8 0%, #fef5ea 60%, #fcecd8 100%);
+      border-bottom: 1px solid var(--cream3);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-text { position: relative; z-index: 1; }
+    .hero-top::after {
+      content: '';
+      position: absolute;
+      right: -60px; top: -60px;
+      width: 260px; height: 260px;
+      border-radius: 50%;
+      border: 32px solid rgba(194,98,42,.07);
+      pointer-events: none;
+    }
+    .hero-top::before {
+      content: '';
+      position: absolute;
+      right: 20px; top: 20px;
+      width: 140px; height: 140px;
+      border-radius: 50%;
+      border: 20px solid rgba(232,160,32,.08);
+      pointer-events: none;
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: var(--spice-lt);
+      color: var(--spice);
+      border: 1.5px solid var(--spice-mid);
+      padding: 7px 14px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+    h1 {
+      font-family: 'Lora', serif;
+      font-weight: 600;
+      font-size: clamp(24px, 3.5vw, 44px);
+      line-height: 1.08;
+      letter-spacing: -.02em;
+      margin: 18px 0 12px;
+      color: var(--text);
+    }
+    .eyebrow-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 0;
+    }
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-mid);
+      text-decoration: none;
+      background: var(--white);
+      border: 1px solid var(--sand);
+      padding: 7px 14px;
+      border-radius: 999px;
+      box-shadow: var(--shadow-sm);
+      transition: background 0.15s;
+    }
+    .back-btn:hover { background: var(--cream2); }
+    .source-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 14px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-mid);
+      text-decoration: none;
+      background: var(--white);
+      border: 1px solid var(--sand);
+      padding: 7px 14px;
+      border-radius: 999px;
+      box-shadow: var(--shadow-sm);
+      transition: background 0.15s;
+    }
+    .source-link:hover { background: var(--cream2); }
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-top: 28px;
+    }
+    .stat {
+      background: var(--white);
+      border: 1px solid var(--cream3);
+      border-radius: var(--r-sm);
+      padding: 16px 14px;
+      position: relative;
+      overflow: hidden;
+    }
+    .stat::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--spice), var(--turmeric));
+      border-radius: 3px 3px 0 0;
+    }
+    .stat .label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: var(--text-lt);
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+    .stat .value {
+      font-family: 'Lora', serif;
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.2;
+    }
+    .content {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      background: var(--cream2);
+    }
+    .panel { background: var(--white); }
+    .panel + .panel { border-left: 1px solid var(--cream3); }
+    .panel-header {
+      padding: 18px 24px 16px;
+      font-family: 'Lora', serif;
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: -.01em;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 1px solid var(--cream3);
+    }
+    .panel-header .icon {
+      width: 30px; height: 30px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+    }
+    .ingredients .panel-header { background: var(--sage-lt); }
+    .ingredients .panel-header .icon { background: var(--sage); color: white; }
+    .method .panel-header { background: var(--spice-lt); }
+    .method .panel-header .icon { background: var(--spice); color: white; }
+    .panel-body { padding: 22px 24px 26px; }
+    .section-title {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      color: var(--text-lt);
+      font-weight: 500;
+      margin: 18px 0 10px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--cream3);
+    }
+    .section-title:first-child { margin-top: 0; }
+    ul { list-style: none; padding: 0; margin: 0 0 4px; }
+    ul li {
+      padding: 7px 0 7px 18px;
+      position: relative;
+      font-size: 14px;
+      line-height: 1.5;
+      color: var(--text-mid);
+      border-bottom: 1px solid var(--cream2);
+    }
+    ul li:last-child { border-bottom: none; }
+    ul li::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 50%;
+      transform: translateY(-50%);
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--spice-mid);
+    }
+    ol { list-style: none; padding: 0; margin: 0; counter-reset: steps; }
+    ol li {
+      counter-increment: steps;
+      display: flex;
+      gap: 14px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--cream2);
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--text-mid);
+    }
+    ol li:last-child { border-bottom: none; }
+    ol li::before {
+      content: counter(steps);
+      min-width: 26px; height: 26px;
+      background: linear-gradient(135deg, var(--spice), var(--turmeric));
+      color: white;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 500;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .footer {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 16px;
+    }
+    .note-card {
+      background: var(--white);
+      border: 1px solid var(--cream3);
+      border-radius: var(--r);
+      box-shadow: var(--shadow-sm);
+      padding: 24px;
+    }
+    .note-card h3 {
+      font-family: 'Lora', serif;
+      font-size: 17px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: var(--text);
+    }
+    .note-card > p {
+      font-size: 13px;
+      color: var(--text-lt);
+      margin-bottom: 16px;
+      font-weight: 300;
+    }
+    .macro-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+    .macro {
+      text-align: center;
+      padding: 14px 8px;
+      border-radius: var(--r-sm);
+      border: 1px solid var(--cream3);
+    }
+    .macro:nth-child(1) { background: var(--turmeric-lt); border-color: #f5dfa0; }
+    .macro:nth-child(2) { background: var(--spice-lt);    border-color: var(--spice-mid); }
+    .macro:nth-child(3) { background: var(--sage-lt);     border-color: #b2d4b5; }
+    .macro:nth-child(4) { background: var(--cream2);      border-color: var(--sand); }
+    .macro .num {
+      display: block;
+      font-family: 'Lora', serif;
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+    .macro .lab {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--text-lt);
+      font-weight: 500;
+    }
+    @media (max-width: 760px) {
+      .stats, .content, .footer, .macro-grid { grid-template-columns: 1fr; }
+      .panel + .panel { border-left: none; border-top: 1px solid var(--cream3); }
+      .app { padding: 16px 14px 40px; }
+      .hero-top { padding: 24px 20px 20px; }
+      .panel-body { padding: 18px 20px 22px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <section class="hero">
+      <div class="hero-top">
+        <div class="hero-text">
+          <div class="eyebrow-row">
+            <a class="back-btn" href="../index.html">← My Recipes</a>
+            <div class="eyebrow">🐑 Lamb</div>
+          </div>
+          <h1>Sheet Pan Adana Kebabs with Cacik & Sumac Onion Salad</h1>
+          <a class="source-link" href="https://www.tiktok.com/@jannatiqbal93/video/7611733673787936022?is_from_webapp=1&sender_device=pc&web_id=7624794964647659029" target="_blank">↗ View original recipe</a>
+          <div class="stats">
+            <div class="stat">
+              <div class="label">Servings</div>
+              <div class="value">2</div>
+            </div>
+            <div class="stat">
+              <div class="label">Time</div>
+              <div class="value">~30 min</div>
+            </div>
+            <div class="stat">
+              <div class="label">Main Ingredients</div>
+              <div class="value">Lamb mince, yoghurt, cucumber, sumac</div>
+            </div>
+            <div class="stat">
+              <div class="label">Calories</div>
+              <div class="value">~755 kcal / serve</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <section class="panel ingredients">
+          <div class="panel-header">
+            <span class="icon">🥬</span>
+            Ingredients
+          </div>
+          <div class="panel-body">
+
+            <div class="section-title">Adana Kebabs</div>
+            <ul>
+              <li>500g lamb mince (or beef, or combined)</li>
+              <li>1 onion, roughly chopped</li>
+              <li>½ red pepper, roughly chopped</li>
+              <li>3 garlic cloves</li>
+              <li>Small handful flat-leaf parsley</li>
+              <li>1 tbsp red pepper paste (or tomato paste)</li>
+              <li>1 tsp smoked paprika</li>
+              <li>1 tsp cumin</li>
+              <li>1 tsp pul biber (Turkish chilli flakes — look for "Aleppo pepper" at Woolworths; substitute: chilli flakes + pinch of smoked paprika)</li>
+              <li>1 tsp salt</li>
+              <li>1 tsp black pepper</li>
+              <li>Olive oil, to drizzle</li>
+            </ul>
+
+            <div class="section-title">Cacik (Turkish Tzatziki)</div>
+            <ul>
+              <li>250g thick Greek yoghurt</li>
+              <li>½ garlic clove, crushed</li>
+              <li>½ large cucumber, grated &amp; drained</li>
+              <li>½ tsp dried mint</li>
+              <li>½ tbsp lemon juice</li>
+              <li>½ tbsp fresh dill, chopped (optional)</li>
+              <li>½ tbsp olive oil</li>
+              <li>¼ tsp salt</li>
+            </ul>
+
+            <div class="section-title">Sumac Onion Salad</div>
+            <ul>
+              <li>½ red onion, finely sliced</li>
+              <li>1 tomato, sliced</li>
+              <li>Small handful flat-leaf parsley, chopped</li>
+              <li>½ heaped tsp sumac</li>
+              <li>½ tbsp lemon juice</li>
+              <li>Pinch of salt &amp; chilli flakes</li>
+              <li>Pomegranate seeds or a drizzle of pomegranate molasses (optional but recommended)</li>
+            </ul>
+
+          </div>
+        </section>
+
+        <section class="panel method">
+          <div class="panel-header">
+            <span class="icon">🍳</span>
+            Recipe
+          </div>
+          <div class="panel-body">
+            <ol>
+              <li>Preheat oven to 210°C fan. Blitz the onion, red pepper, garlic and parsley in a food processor until finely chopped. Drain any excess liquid if you like a firmer kebab.</li>
+              <li>Add the blitzed veg to a large bowl with the lamb mince, red pepper paste and all the spices. Mix firmly until the mixture becomes tacky and starts sticking to the side of the bowl — this is key for it to hold together.</li>
+              <li>Spread the mixture onto a well-oiled baking tray and press into an even layer about 1–2cm thick. Use a spatula to score into strips. Drizzle with olive oil.</li>
+              <li>Bake for 15–18 minutes until browned and sizzling. While the kebabs cook, make the sides.</li>
+              <li>For the cacik: combine the yoghurt, crushed garlic, drained cucumber, mint, lemon juice, dill, olive oil and salt. Mix well and refrigerate until serving.</li>
+              <li>For the sumac onion salad: toss together the red onion, tomato, parsley, sumac, lemon juice, salt and chilli flakes. Finish with pomegranate seeds or molasses if using.</li>
+              <li>Serve the kebab strips with the cacik and salad alongside. Flatbread is great for scooping.</li>
+            </ol>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <section class="footer">
+      <div class="note-card">
+        <h3>Estimated Macros</h3>
+        <p>Per serving, based on 2 serves. Estimated using Woolworths AU ingredients, excludes flatbread.</p>
+        <div class="macro-grid">
+          <div class="macro">
+            <span class="num">755</span>
+            <span class="lab">Calories</span>
+          </div>
+          <div class="macro">
+            <span class="num">42g</span>
+            <span class="lab">Protein</span>
+          </div>
+          <div class="macro">
+            <span class="num">14g</span>
+            <span class="lab">Carbs</span>
+          </div>
+          <div class="macro">
+            <span class="num">58g</span>
+            <span class="lab">Fat</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="note-card">
+        <h3>Notes</h3>
+        <ul>
+          <li>Pul biber is a Turkish chilli flake — find it as "Aleppo pepper" at Woolworths or in Middle Eastern grocers.</li>
+          <li>The mixture must become tacky before baking — keep mixing until it does.</li>
+          <li>Drain the cucumber well for the cacik or it will become watery.</li>
+          <li>Beef mince or a lamb/beef combo works equally well.</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
