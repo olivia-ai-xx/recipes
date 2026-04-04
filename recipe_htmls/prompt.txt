@@ -13,6 +13,7 @@ Estimate calories and macros per serve assuming ingredients purchased from Woolw
 Find a suitable free Unsplash image URL for the dish (format: https://images.unsplash.com/photo-XXXXX?w=600&q=80)
 Assign a main protein tag (chicken, beef, pork, lamb, seafood, vegetarian, vegan, egg, tofu, turkey)
 Estimate total cook time
+Estimate a sensible number of servings based on the ingredients and quantities given — don't default to 4, use your judgement (e.g. a 500g mince recipe likely serves 4, a whole 1.5kg roast likely serves 6, a small pasta dish might serve 2)
 Give me the line to add to my index.html recipes array in this format:
 
 js{ title: "TITLE", file: "FILENAME.html", protein: "PROTEIN", time: "TIME", serves: X, cals: XXX },
