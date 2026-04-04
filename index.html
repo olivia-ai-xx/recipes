@@ -97,16 +97,28 @@
       display: inline-block; font-size: 12px; font-weight: 600;
       padding: 4px 10px; border-radius: 999px; margin-bottom: 10px;
     }
-    .tag-chicken    { background: #e8f0f7; color: #1a4a6e; }
-    .tag-beef       { background: #f7efe8; color: #8a4a2f; }
-    .tag-pork       { background: #fbeaf0; color: #72243e; }
-    .tag-lamb       { background: #f7efe8; color: #854f0b; }
-    .tag-seafood    { background: #e1f5ee; color: #0f6e56; }
-    .tag-vegetarian { background: #eaf3de; color: #3b6d11; }
-    .tag-vegan      { background: #eaf3de; color: #27500a; }
-    .tag-egg        { background: #faeeda; color: #854f0b; }
-    .tag-tofu       { background: #eeedfe; color: #3c3489; }
-    .tag-turkey     { background: #f7efe8; color: #8a4a2f; }
+.tag-chicken          { background: #e8f0f7; color: #1a4a6e; }
+.tag-chicken::before          { content: '🍗 '; }
+.tag-beef             { background: #f7efe8; color: #8a4a2f; }
+.tag-beef::before             { content: '🥩 '; }
+.tag-pork             { background: #fbeaf0; color: #72243e; }
+.tag-pork::before             { content: '🐷 '; }
+.tag-lamb             { background: #f7efe8; color: #854f0b; }
+.tag-lamb::before             { content: '🐑 '; }
+.tag-seafood          { background: #e1f5ee; color: #0f6e56; }
+.tag-seafood::before          { content: '🐟 '; }
+.tag-vegetarian       { background: #eaf3de; color: #3b6d11; }
+.tag-vegetarian::before       { content: '🥦 '; }
+.tag-vegan            { background: #eaf3de; color: #27500a; }
+.tag-vegan::before            { content: '🌱 '; }
+.tag-egg              { background: #faeeda; color: #854f0b; }
+.tag-egg::before              { content: '🥚 '; }
+.tag-tofu             { background: #eeedfe; color: #3c3489; }
+.tag-tofu::before             { content: '🫘 '; }
+.tag-turkey           { background: #f7efe8; color: #8a4a2f; }
+.tag-turkey::before           { content: '🦃 '; }
+.tag-leftover-chicken { background: #f0ede8; color: #5c4a32; }
+.tag-leftover-chicken::before { content: '♻️ '; }
     .card-title { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
     .card-meta { font-size: 13px; color: var(--muted); }
 
