@@ -4,190 +4,373 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>One Pan Butter Chicken</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
-    :root{
-      --bg:#f6f4f1;
-      --card:#ffffff;
-      --text:#22201d;
-      --muted:#6f6a63;
-      --line:#e9e3dc;
-      --green:#dfe9e1;
-      --pink:#f3dfe8;
-      --accent:#c66b4e;
-      --chip:#f7efe8;
-      --shadow:0 12px 30px rgba(43,33,24,.08);
-      --radius:22px;
+    :root {
+      --cream:      #fdf8f2;
+      --cream2:     #f7f0e6;
+      --cream3:     #efe4d4;
+      --sand:       #e2d5c3;
+      --spice:      #c2622a;
+      --spice-lt:   #f5e8df;
+      --spice-mid:  #e8a882;
+      --turmeric:   #e8a020;
+      --turmeric-lt:#fef3dc;
+      --sage:       #7a9e7e;
+      --sage-lt:    #eaf2eb;
+      --text:       #2b1f14;
+      --text-mid:   #6b5440;
+      --text-lt:    #9c836a;
+      --white:      #ffffff;
+      --shadow-sm:  0 2px 8px rgba(80,40,10,.07);
+      --shadow:     0 8px 32px rgba(80,40,10,.10);
+      --shadow-lg:  0 20px 60px rgba(80,40,10,.13);
+      --r-sm: 14px;
+      --r:    22px;
+      --r-lg: 32px;
     }
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background:linear-gradient(180deg,#f8f6f3 0%, #f3efe9 100%);
-      color:var(--text);
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      min-height: 100vh;
     }
-    .app{
-      max-width: 980px;
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: radial-gradient(circle, var(--sand) 1px, transparent 1px);
+      background-size: 28px 28px;
+      opacity: 0.35;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .app {
+      position: relative;
+      z-index: 1;
+      max-width: 1200px;
       margin: 0 auto;
-      padding: 24px 18px 40px;
+      padding: 32px 20px 56px;
     }
-    .hero{
-      background:var(--card);
-      border:1px solid var(--line);
-      border-radius:32px;
-      box-shadow:var(--shadow);
-      overflow:hidden;
+
+    /* HERO */
+    .hero {
+      background: var(--white);
+      border-radius: var(--r-lg);
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+      border: 1px solid var(--cream3);
     }
-    .hero-top{
-      padding:28px 28px 18px;
-      background:
-        radial-gradient(circle at top right, rgba(198,107,78,.10), transparent 30%),
-        linear-gradient(135deg, #fff 0%, #fcfaf7 100%);
+    .hero-top {
+      padding: 36px 36px 28px;
+      background: linear-gradient(135deg, #fffcf8 0%, #fef5ea 60%, #fcecd8 100%);
+      border-bottom: 1px solid var(--cream3);
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 28px;
+      align-items: center;
     }
-    .eyebrow{
-      display:inline-flex;
-      gap:8px;
-      align-items:center;
-      background:var(--chip);
-      color:var(--accent);
-      border:1px solid #f0ded3;
-      padding:8px 12px;
-      border-radius:999px;
-      font-size:13px;
-      font-weight:600;
-      letter-spacing:.01em;
+    .hero-text { position: relative; z-index: 1; }
+    .hero-image {
+      width: 210px;
+      height: 210px;
+      border-radius: 24px;
+      object-fit: cover;
+      box-shadow: 0 8px 32px rgba(80,40,10,.18);
+      border: 3px solid var(--white);
+      flex-shrink: 0;
     }
-    h1{
-      margin:16px 0 10px;
-      font-size:clamp(30px, 5vw, 48px);
-      line-height:1.05;
-      letter-spacing:-.03em;
+    .hero-top::after {
+      content: '';
+      position: absolute;
+      right: -60px; top: -60px;
+      width: 260px; height: 260px;
+      border-radius: 50%;
+      border: 32px solid rgba(194,98,42,.07);
+      pointer-events: none;
     }
-    .subtitle{
-      margin:0;
-      font-size:16px;
-      color:var(--muted);
-      max-width:700px;
-      line-height:1.6;
+    .hero-top::before {
+      content: '';
+      position: absolute;
+      right: 20px; top: 20px;
+      width: 140px; height: 140px;
+      border-radius: 50%;
+      border: 20px solid rgba(232,160,32,.08);
+      pointer-events: none;
     }
-    .stats{
-      display:grid;
-      grid-template-columns:repeat(4,1fr);
-      gap:12px;
-      margin-top:24px;
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: var(--spice-lt);
+      color: var(--spice);
+      border: 1.5px solid var(--spice-mid);
+      padding: 7px 14px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: .06em;
+      text-transform: uppercase;
     }
-    .stat{
-      background:#fcfaf7;
-      border:1px solid var(--line);
-      border-radius:20px;
-      padding:16px;
+    h1 {
+      font-family: 'Lora', serif;
+      font-weight: 600;
+      font-size: clamp(32px, 5vw, 52px);
+      line-height: 1.08;
+      letter-spacing: -.02em;
+      margin: 18px 0 12px;
+      color: var(--text);
     }
-    .stat .label{
-      font-size:12px;
-      text-transform:uppercase;
-      letter-spacing:.08em;
-      color:var(--muted);
-      margin-bottom:8px;
+    .subtitle {
+      font-size: 15px;
+      color: var(--text-mid);
+      max-width: 640px;
+      line-height: 1.7;
+      font-weight: 300;
     }
-    .stat .value{
-      font-size:18px;
-      font-weight:700;
+    .eyebrow-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 0;
     }
-    .content{
-      display:grid;
-      grid-template-columns: 1fr 1.35fr;
-      gap:18px;
-      padding:18px;
-      background:rgba(250,248,245,.8);
-      border-top:1px solid var(--line);
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-mid);
+      text-decoration: none;
+      background: var(--white);
+      border: 1px solid var(--sand);
+      padding: 7px 14px;
+      border-radius: 999px;
+      box-shadow: var(--shadow-sm);
+      transition: background 0.15s;
     }
-    .panel{
-      background:var(--card);
-      border:1px solid var(--line);
-      border-radius:24px;
-      overflow:hidden;
+    .back-btn:hover { background: var(--cream2); }
+    .source-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 14px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-mid);
+      text-decoration: none;
+      background: var(--white);
+      border: 1px solid var(--sand);
+      padding: 7px 14px;
+      border-radius: 999px;
+      box-shadow: var(--shadow-sm);
+      transition: background 0.15s;
     }
-    .panel-header{
-      padding:16px 18px;
-      font-size:20px;
-      font-weight:700;
+    .source-link:hover { background: var(--cream2); }
+
+    /* STATS */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-top: 28px;
     }
-    .ingredients .panel-header{background:var(--green)}
-    .method .panel-header{background:var(--pink)}
-    .panel-body{
-      padding:18px 20px 22px;
+    .stat {
+      background: var(--white);
+      border: 1px solid var(--cream3);
+      border-radius: var(--r-sm);
+      padding: 16px 14px;
+      position: relative;
+      overflow: hidden;
     }
-    .section-title{
-      margin:4px 0 10px;
-      font-size:14px;
-      text-transform:uppercase;
-      letter-spacing:.08em;
-      color:var(--muted);
+    .stat::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--spice), var(--turmeric));
+      border-radius: 3px 3px 0 0;
     }
-    ul{
-      margin:0 0 18px 0;
-      padding-left:20px;
+    .stat .label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: var(--text-lt);
+      margin-bottom: 8px;
+      font-weight: 500;
     }
-    li{
-      margin:0 0 10px;
-      line-height:1.5;
+    .stat .value {
+      font-family: 'Lora', serif;
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.2;
     }
-    ol{
-      margin:0;
-      padding-left:22px;
+
+    /* CONTENT */
+    .content {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      background: var(--cream2);
     }
-    ol li{
-      padding-left:4px;
-      margin-bottom:14px;
+    .panel { background: var(--white); }
+    .panel + .panel { border-left: 1px solid var(--cream3); }
+
+    .panel-header {
+      padding: 18px 24px 16px;
+      font-family: 'Lora', serif;
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: -.01em;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 1px solid var(--cream3);
     }
-    .footer{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:18px;
-      margin-top:18px;
+    .panel-header .icon {
+      width: 30px; height: 30px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
     }
-    .note-card{
-      background:var(--card);
-      border:1px solid var(--line);
-      border-radius:24px;
-      box-shadow:var(--shadow);
-      padding:20px;
+    .ingredients .panel-header { background: var(--sage-lt); }
+    .ingredients .panel-header .icon { background: var(--sage); color: white; }
+    .method .panel-header { background: var(--spice-lt); }
+    .method .panel-header .icon { background: var(--spice); color: white; }
+
+    .panel-body { padding: 22px 24px 26px; }
+
+    .section-title {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      color: var(--text-lt);
+      font-weight: 500;
+      margin: 18px 0 10px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--cream3);
     }
-    .note-card h3{
-      margin:0 0 10px;
-      font-size:18px;
+    .section-title:first-child { margin-top: 0; }
+
+    ul { list-style: none; padding: 0; margin: 0 0 4px; }
+    ul li {
+      padding: 7px 0 7px 18px;
+      position: relative;
+      font-size: 14px;
+      line-height: 1.5;
+      color: var(--text-mid);
+      border-bottom: 1px solid var(--cream2);
     }
-    .note-card p, .note-card li{
-      color:#4f4a44;
+    ul li:last-child { border-bottom: none; }
+    ul li::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 50%;
+      transform: translateY(-50%);
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--spice-mid);
     }
-    .macro-grid{
-      display:grid;
-      grid-template-columns:repeat(4,1fr);
-      gap:12px;
-      margin-top:12px;
+
+    ol { list-style: none; padding: 0; margin: 0; counter-reset: steps; }
+    ol li {
+      counter-increment: steps;
+      display: flex;
+      gap: 14px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--cream2);
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--text-mid);
     }
-    .macro{
-      border:1px solid var(--line);
-      border-radius:18px;
-      padding:14px;
-      background:#fcfaf7;
-      text-align:center;
+    ol li:last-child { border-bottom: none; }
+    ol li::before {
+      content: counter(steps);
+      min-width: 26px; height: 26px;
+      background: linear-gradient(135deg, var(--spice), var(--turmeric));
+      color: white;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 500;
+      flex-shrink: 0;
+      margin-top: 1px;
     }
-    .macro .num{
-      display:block;
-      font-size:22px;
-      font-weight:800;
-      margin-bottom:4px;
+
+    /* FOOTER */
+    .footer {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 16px;
     }
-    .macro .lab{
-      color:var(--muted);
-      font-size:13px;
+    .note-card {
+      background: var(--white);
+      border: 1px solid var(--cream3);
+      border-radius: var(--r);
+      box-shadow: var(--shadow-sm);
+      padding: 24px;
     }
-    @media (max-width: 780px){
-      .stats, .content, .footer, .macro-grid{
-        grid-template-columns:1fr;
-      }
-      .app{padding:14px}
-      .hero-top{padding:22px 18px 16px}
+    .note-card h3 {
+      font-family: 'Lora', serif;
+      font-size: 17px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: var(--text);
+    }
+    .note-card > p {
+      font-size: 13px;
+      color: var(--text-lt);
+      margin-bottom: 16px;
+      font-weight: 300;
+    }
+    .macro-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+    .macro {
+      text-align: center;
+      padding: 14px 8px;
+      border-radius: var(--r-sm);
+      border: 1px solid var(--cream3);
+    }
+    .macro:nth-child(1) { background: var(--turmeric-lt); border-color: #f5dfa0; }
+    .macro:nth-child(2) { background: var(--spice-lt);    border-color: var(--spice-mid); }
+    .macro:nth-child(3) { background: var(--sage-lt);     border-color: #b2d4b5; }
+    .macro:nth-child(4) { background: var(--cream2);      border-color: var(--sand); }
+    .macro .num {
+      display: block;
+      font-family: 'Lora', serif;
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+    .macro .lab {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--text-lt);
+      font-weight: 500;
+    }
+
+    @media (max-width: 760px) {
+      .stats, .content, .footer, .macro-grid { grid-template-columns: 1fr; }
+      .panel + .panel { border-left: none; border-top: 1px solid var(--cream3); }
+      .app { padding: 16px 14px 40px; }
+      .hero-top { grid-template-columns: 1fr; padding: 24px 20px 20px; }
+      .hero-image { width: 100%; height: 200px; }
+      .panel-body { padding: 18px 20px 22px; }
     }
   </style>
 </head>
@@ -195,14 +378,13 @@
   <main class="app">
     <section class="hero">
       <div class="hero-top">
-        <div class="eyebrow">🍛 Dinner Recipe</div>
+      <div class="hero-text">
+        <div class="eyebrow-row">
+          <a class="back-btn" href="../index.html">← Back</a>
+          <div class="eyebrow">🍗 Chicken</div>
+        </div>
         <h1>One Pan Butter Chicken</h1>
-        <p class="subtitle">
-          A rich, restaurant-style butter chicken made with marinated chicken thighs,
-          tomatoes, cashews, cream, and warming spices. Standardised from the TikTok caption
-          into a repeatable recipe using ingredients easy to find at Woolworths.
-        </p>
-
+        <a class="source-link" href="https://www.tiktok.com/@ciaobellaeats/video/7563199551910448386?is_from_webapp=1&sender_device=pc&web_id=7624794964647659029" target="_blank">↗ View original recipe</a>
         <div class="stats">
           <div class="stat">
             <div class="label">Servings</div>
@@ -222,10 +404,19 @@
           </div>
         </div>
       </div>
+      <img
+        class="hero-image"
+        src="https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?w=600&q=80"
+        alt="One Pan Butter Chicken"
+      />
+      </div>
 
       <div class="content">
         <section class="panel ingredients">
-          <div class="panel-header">Ingredients</div>
+          <div class="panel-header">
+            <span class="icon">🥬</span>
+            Ingredients
+          </div>
           <div class="panel-body">
             <div class="section-title">Chicken Marinade</div>
             <ul>
@@ -239,7 +430,6 @@
               <li>1 tbsp kasoori methi</li>
               <li>Salt</li>
             </ul>
-
             <div class="section-title">Sauce</div>
             <ul>
               <li>1 large brown onion, sliced</li>
@@ -253,7 +443,6 @@
               <li>1/2 cup thickened cream</li>
               <li>1/2–1 cup water, as needed</li>
             </ul>
-
             <div class="section-title">To Finish</div>
             <ul>
               <li>1 tbsp kasoori methi</li>
@@ -263,7 +452,10 @@
         </section>
 
         <section class="panel method">
-          <div class="panel-header">Recipe</div>
+          <div class="panel-header">
+            <span class="icon">🍳</span>
+            Recipe
+          </div>
           <div class="panel-body">
             <ol>
               <li>Marinate the chicken with yoghurt, spices, kasoori methi, and salt for at least 1 hour. Overnight is even better.</li>
