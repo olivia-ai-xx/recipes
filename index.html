@@ -121,7 +121,23 @@
 .tag-leftover-chicken::before { content: '♻️ '; }
     .card-title { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
     .card-meta { font-size: 13px; color: var(--muted); }
+    .cook-count {
+      display: inline-flex; align-items: center; gap: 5px;
+      margin-top: 10px; font-size: 12px; font-weight: 600;
+      color: var(--accent); background: var(--chip);
+      border: 1px solid #f0ded3; padding: 4px 10px;
+      border-radius: 999px;
+    }
 
+    .sort-row {
+      display: flex; align-items: center; gap: 8px;
+      flex-wrap: wrap; margin-top: 12px;
+      padding-top: 12px; border-top: 1px solid var(--line);
+    }
+    .sort-label {
+      font-size: 13px; color: var(--muted);
+      font-weight: 500; margin-right: 2px;
+    }
     .empty {
       grid-column: 1 / -1; text-align: center;
       padding: 60px 20px; color: var(--muted); font-size: 15px;
@@ -145,6 +161,13 @@
       <input id="search" type="text" placeholder="Search recipes..." oninput="render()" />
 
       <div class="filters" id="filters"></div>
+      <div class="sort-row">
+        <span class="sort-label">Sort by</span>
+        <span class="chip active" id="sort-default" onclick="setSort('default')">Default</span>
+        <span class="chip" id="sort-cals-asc" onclick="setSort('cals-asc')">Calories ↑</span>
+        <span class="chip" id="sort-cals-desc" onclick="setSort('cals-desc')">Calories ↓</span>
+
+      </div>
     </div>
 
     <p class="count" id="count"></p>
@@ -199,6 +222,16 @@
 
     const allTags = ["all", ...new Set(recipes.map(r => r.protein))];
     let activeTag = "all";
+    let activeSort = "default";
+    let cookCounts = {};
+
+    function setSort(s) {
+      activeSort = s;
+      ["default","cals-asc","cals-desc"].forEach(id => {
+        document.getElementById("sort-" + id).classList.toggle("active", id === s);
+      });
+      render();
+    }
 
     function renderFilters() {
       document.getElementById("filters").innerHTML = allTags.map(t =>
@@ -217,20 +250,50 @@
         const matchT = activeTag === "all" || r.protein === activeTag;
         return matchQ && matchT;
       });
+      if (activeSort === "cals-asc") filtered.sort((a, b) => a.cals - b.cals);
+      else if (activeSort === "cals-desc") filtered.sort((a, b) => b.cals - a.cals);
       document.getElementById("count").textContent =
         filtered.length + " recipe" + (filtered.length !== 1 ? "s" : "");
       document.getElementById("grid").innerHTML = filtered.length
-        ? filtered.map(r => `
+        ? filtered.map(r => {
+            const count = cookCounts[r.file] || 0;
+            const cookBadge = count > 0
+              ? `<div class="cook-count">🍳 Cooked ${count} time${count !== 1 ? "s" : ""}</div>`
+              : "";
+            return `
             <a class="card" href="recipe_htmls/${r.file}">
               <span class="card-tag tag-${r.protein}">${r.protein}</span>
               <p class="card-title">${r.title}</p>
               <p class="card-meta">${r.time} &nbsp;·&nbsp; ${r.serves} serves &nbsp;·&nbsp; ${r.cals} kcal</p>
-            </a>`).join("")
+              ${cookBadge}
+            </a>`;
+          }).join("")
         : `<div class="empty">No recipes found. Try a different search.</div>`;
     }
 
     renderFilters();
     render();
+
+    // Fetch cook counts from Google Sheets
+    const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQfwQp96tJdcpTwgRxY-z8AbNH6IVQ3toQisDCWAy-7AFx0yaERVwfsCHpv1zKKLTjN6RrFQGzw4Kxr/pub?gid=0&single=true&output=csv";
+
+    fetch(CSV_URL)
+      .then(r => r.text())
+      .then(csv => {
+        const rows = csv.trim().split("\n").slice(1); // skip header
+        rows.forEach(row => {
+          // Extract the URL from the row (second column)
+          const cols = row.split(",");
+          const url = cols[1] ? cols[1].trim().replace(/"/g, "") : "";
+          // Extract just the filename from the URL
+          const filename = url.split("/").pop();
+          if (filename) {
+            cookCounts[filename] = (cookCounts[filename] || 0) + 1;
+          }
+        });
+        render(); // re-render cards with cook counts
+      })
+      .catch(err => console.warn("Could not load cook counts:", err));
   </script>
 </body>
 </html>
