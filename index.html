@@ -89,10 +89,12 @@
       cursor: pointer;
       text-decoration: none;
       color: inherit;
-      display: block;
+      display: flex;
+      flex-direction: column;
       transition: box-shadow 0.2s, transform 0.2s;
     }
     .card:hover { box-shadow: var(--shadow); transform: translateY(-2px); }
+    .card-body { flex: 1; }
     .card-tag {
       display: inline-block; font-size: 12px; font-weight: 600;
       padding: 4px 10px; border-radius: 999px; margin-bottom: 10px;
@@ -264,13 +266,15 @@
         ? filtered.map(r => {
             const count = cookCounts[r.file] || 0;
             const cookBadge = count > 0
-              ? `<span class="cook-count">🍳 Cooked ${count} time${count !== 1 ? "s" : ""}</span>`
+              ? `<span class="cook-count">🍳 ${count}</span>`
               : "";
             return `
             <a class="card" href="recipe_htmls/${r.file}">
-              <span class="card-tag tag-${r.protein}">${r.protein}</span>
-              <p class="card-title">${r.title}</p>
-              <p class="card-meta">${r.time} &nbsp;·&nbsp; ${r.serves} serves &nbsp;·&nbsp; ${r.cals} kcal</p>
+              <div class="card-body">
+                <span class="card-tag tag-${r.protein}">${r.protein}</span>
+                <p class="card-title">${r.title}</p>
+                <p class="card-meta">${r.time} &nbsp;·&nbsp; ${r.serves} serves &nbsp;·&nbsp; ${r.cals} kcal</p>
+              </div>
               ${cookBadge}
             </a>`;
           }).join("")
