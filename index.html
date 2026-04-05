@@ -90,6 +90,7 @@
       text-decoration: none;
       color: inherit;
       display: block;
+      position: relative;
       transition: box-shadow 0.2s, transform 0.2s;
     }
     .card:hover { box-shadow: var(--shadow); transform: translateY(-2px); }
@@ -122,10 +123,12 @@
     .card-title { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
     .card-meta { font-size: 13px; color: var(--muted); }
     .cook-count {
-      display: inline-flex; align-items: center; gap: 5px;
-      margin-top: 10px; font-size: 12px; font-weight: 600;
+      position: absolute;
+      top: 14px; right: 14px;
+      display: inline-flex; align-items: center; gap: 4px;
+      font-size: 11px; font-weight: 600;
       color: var(--accent); background: var(--chip);
-      border: 1px solid #f0ded3; padding: 4px 10px;
+      border: 1px solid #f0ded3; padding: 3px 9px;
       border-radius: 999px;
     }
 
@@ -166,6 +169,8 @@
         <span class="chip active" id="sort-default" onclick="setSort('default')">Default</span>
         <span class="chip" id="sort-cals-asc" onclick="setSort('cals-asc')">Calories ↑</span>
         <span class="chip" id="sort-cals-desc" onclick="setSort('cals-desc')">Calories ↓</span>
+        <span class="chip" id="sort-cooked-desc" onclick="setSort('cooked-desc')">Most cooked ↓</span>
+        <span class="chip" id="sort-cooked-asc" onclick="setSort('cooked-asc')">Least cooked ↑</span>
 
       </div>
     </div>
@@ -227,7 +232,7 @@
 
     function setSort(s) {
       activeSort = s;
-      ["default","cals-asc","cals-desc"].forEach(id => {
+      ["default","cals-asc","cals-desc","cooked-desc","cooked-asc"].forEach(id => {
         document.getElementById("sort-" + id).classList.toggle("active", id === s);
       });
       render();
@@ -252,6 +257,8 @@
       });
       if (activeSort === "cals-asc") filtered.sort((a, b) => a.cals - b.cals);
       else if (activeSort === "cals-desc") filtered.sort((a, b) => b.cals - a.cals);
+      else if (activeSort === "cooked-desc") filtered.sort((a, b) => (cookCounts[b.file] || 0) - (cookCounts[a.file] || 0));
+      else if (activeSort === "cooked-asc") filtered.sort((a, b) => (cookCounts[a.file] || 0) - (cookCounts[b.file] || 0));
       document.getElementById("count").textContent =
         filtered.length + " recipe" + (filtered.length !== 1 ? "s" : "");
       document.getElementById("grid").innerHTML = filtered.length
