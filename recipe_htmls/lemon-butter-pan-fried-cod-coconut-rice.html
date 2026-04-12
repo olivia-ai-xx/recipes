@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Citrusy Lemon Butter Pan Fried Cod + Coconut Rice</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cream:      #fdf8f2;
+      --cream2:     #f7f0e6;
+      --cream3:     #efe4d4;
+      --sand:       #e2d5c3;
+      --spice:      #c2622a;
+      --spice-lt:   #f5e8df;
+      --spice-mid:  #e8a882;
+      --turmeric:   #e8a020;
+      --turmeric-lt:#fef3dc;
+      --sage:       #7a9e7e;
+      --sage-lt:    #eaf2eb;
+      --text:       #2b1f14;
+      --text-mid:   #6b5440;
+      --text-lt:    #9c836a;
+      --white:      #ffffff;
+      --shadow-sm:  0 2px 8px rgba(80,40,10,.07);
+      --shadow:     0 8px 32px rgba(80,40,10,.10);
+      --shadow-lg:  0 20px 60px rgba(80,40,10,.13);
+      --r-sm: 14px;
+      --r:    22px;
+      --r-lg: 32px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      min-height: 100vh;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: radial-gradient(circle, var(--sand) 1px, transparent 1px);
+      background-size: 28px 28px;
+      opacity: 0.35;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .app {
+      position: relative;
+      z-index: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 32px 20px 56px;
+    }
+    .hero {
+      background: var(--white);
+      border-radius: var(--r-lg);
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+      border: 1px solid var(--cream3);
+    }
+    .hero-top {
+      padding: 36px 36px 28px;
+      background: linear-gradient(135deg, #fffcf8 0%, #fef5ea 60%, #fcecd8 100%);
+      border-bottom: 1px solid var(--cream3);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-text { position: relative; z-index: 1; }
+    .hero-top::after {
+      content: '';
+      position: absolute;
+      right: -60px; top: -60px;
+      width: 260px; height: 260px;
+      border-radius: 50%;
+      border: 32px solid rgba(194,98,42,.07);
+      pointer-events: none;
+    }
+    .hero-top::before {
+      content: '';
+      position: absolute;
+      right: 20px; top: 20px;
+      width: 140px; height: 140px;
+      border-radius: 50%;
+      border: 20px solid rgba(232,160,32,.08);
+      pointer-events: none;
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: var(--spice-lt);
+      color: var(--spice);
+      border: 1.5px solid var(--spice-mid);
+      padding: 7px 14px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+    h1 {
+      font-family: 'Lora', serif;
+      font-weight: 600;
+      font-size: clamp(28px, 5vw, 48px);
+      line-height: 1.08;
+      letter-spacing: -.02em;
+      margin: 18px 0 12px;
+      color: var(--text);
+    }
+    .eyebrow-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 0;
+    }
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-mid);
+      text-decoration: none;
+      background: var(--white);
+      border: 1px solid var(--sand);
+      padding: 7px 14px;
+      border-radius: 999px;
+      box-shadow: var(--shadow-sm);
+      transition: background 0.15s;
+    }
+    .back-btn:hover { background: var(--cream2); }
+    .source-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 14px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-mid);
+      text-decoration: none;
+      background: var(--white);
+      border: 1px solid var(--sand);
+      padding: 7px 14px;
+      border-radius: 999px;
+      box-shadow: var(--shadow-sm);
+      transition: background 0.15s;
+    }
+    .source-link:hover { background: var(--cream2); }
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-top: 28px;
+    }
+    .stat {
+      background: var(--white);
+      border: 1px solid var(--cream3);
+      border-radius: var(--r-sm);
+      padding: 16px 14px;
+      position: relative;
+      overflow: hidden;
+    }
+    .stat::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--spice), var(--turmeric));
+      border-radius: 3px 3px 0 0;
+    }
+    .stat .label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: var(--text-lt);
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+    .stat .value {
+      font-family: 'Lora', serif;
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.2;
+    }
+    .content {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      background: var(--cream2);
+    }
+    .panel { background: var(--white); }
+    .panel + .panel { border-left: 1px solid var(--cream3); }
+    .panel-header {
+      padding: 18px 24px 16px;
+      font-family: 'Lora', serif;
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: -.01em;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 1px solid var(--cream3);
+    }
+    .panel-header .icon {
+      width: 30px; height: 30px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+    }
+    .ingredients .panel-header { background: var(--sage-lt); }
+    .ingredients .panel-header .icon { background: var(--sage); color: white; }
+    .method .panel-header { background: var(--spice-lt); }
+    .method .panel-header .icon { background: var(--spice); color: white; }
+    .panel-body { padding: 22px 24px 26px; }
+    .section-title {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      color: var(--text-lt);
+      font-weight: 500;
+      margin: 18px 0 10px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--cream3);
+    }
+    .section-title:first-child { margin-top: 0; }
+    ul { list-style: none; padding: 0; margin: 0 0 4px; }
+    ul li {
+      padding: 7px 0 7px 18px;
+      position: relative;
+      font-size: 14px;
+      line-height: 1.5;
+      color: var(--text-mid);
+      border-bottom: 1px solid var(--cream2);
+    }
+    ul li:last-child { border-bottom: none; }
+    ul li::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 50%;
+      transform: translateY(-50%);
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--spice-mid);
+    }
+    ol { list-style: none; padding: 0; margin: 0; counter-reset: steps; }
+    ol li {
+      counter-increment: steps;
+      display: flex;
+      gap: 14px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--cream2);
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--text-mid);
+    }
+    ol li:last-child { border-bottom: none; }
+    ol li::before {
+      content: counter(steps);
+      min-width: 26px; height: 26px;
+      background: linear-gradient(135deg, var(--spice), var(--turmeric));
+      color: white;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 500;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .footer {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 16px;
+    }
+    .note-card {
+      background: var(--white);
+      border: 1px solid var(--cream3);
+      border-radius: var(--r);
+      box-shadow: var(--shadow-sm);
+      padding: 24px;
+    }
+    .note-card h3 {
+      font-family: 'Lora', serif;
+      font-size: 17px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: var(--text);
+    }
+    .note-card > p {
+      font-size: 13px;
+      color: var(--text-lt);
+      margin-bottom: 16px;
+      font-weight: 300;
+    }
+    .macro-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+    .macro {
+      text-align: center;
+      padding: 14px 8px;
+      border-radius: var(--r-sm);
+      border: 1px solid var(--cream3);
+    }
+    .macro:nth-child(1) { background: var(--turmeric-lt); border-color: #f5dfa0; }
+    .macro:nth-child(2) { background: var(--spice-lt);    border-color: var(--spice-mid); }
+    .macro:nth-child(3) { background: var(--sage-lt);     border-color: #b2d4b5; }
+    .macro:nth-child(4) { background: var(--cream2);      border-color: var(--sand); }
+    .macro .num {
+      display: block;
+      font-family: 'Lora', serif;
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+    .macro .lab {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--text-lt);
+      font-weight: 500;
+    }
+    @media (max-width: 760px) {
+      .stats, .content, .footer, .macro-grid { grid-template-columns: 1fr; }
+      .panel + .panel { border-left: none; border-top: 1px solid var(--cream3); }
+      .app { padding: 16px 14px 40px; }
+      .hero-top { padding: 24px 20px 20px; }
+      .panel-body { padding: 18px 20px 22px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <section class="hero">
+      <div class="hero-top">
+        <div class="hero-text">
+          <div class="eyebrow-row">
+            <a class="back-btn" href="../index.html">← My Recipes</a>
+            <div class="eyebrow">🐟 Seafood</div>
+          </div>
+          <h1>Citrusy Lemon Butter Pan Fried Cod + Coconut Rice</h1>
+          <a class="source-link" href="https://abrightmoment.com/citrusy-lemon-butter-pan-fried-cod/" target="_blank">↗ View original recipe</a>
+          <div class="stats">
+            <div class="stat">
+              <div class="label">Servings</div>
+              <div class="value">2</div>
+            </div>
+            <div class="stat">
+              <div class="label">Time</div>
+              <div class="value">~30 min</div>
+            </div>
+            <div class="stat">
+              <div class="label">Main Ingredients</div>
+              <div class="value">Cod, Coconut Milk, Lemon, Butter</div>
+            </div>
+            <div class="stat">
+              <div class="label">Calories</div>
+              <div class="value">~680 kcal / serve</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <section class="panel ingredients">
+          <div class="panel-header">
+            <span class="icon">🥬</span>
+            Ingredients
+          </div>
+          <div class="panel-body">
+
+            <div class="section-title">Coconut Rice</div>
+            <ul>
+              <li>½ cup basmati or jasmine rice</li>
+              <li>½ tbsp olive oil</li>
+              <li>¼ cup water</li>
+              <li>½ can (200ml) full-fat coconut milk</li>
+              <li>½ tsp fine sea salt</li>
+              <li>½ tbsp unsalted butter</li>
+            </ul>
+
+            <div class="section-title">Lemon Butter Sauce</div>
+            <ul>
+              <li>Zest of ½ lemon</li>
+              <li>1½ tbsp fresh lemon juice</li>
+              <li>2 tbsp unsalted butter</li>
+            </ul>
+
+            <div class="section-title">Pan Fried Cod</div>
+            <ul>
+              <li>225g cod fillets (1–1.5″ thick)</li>
+              <li>Salt and black pepper, to taste</li>
+              <li>1 tbsp plain flour</li>
+              <li>1 tbsp olive oil</li>
+            </ul>
+
+            <div class="section-title">To Garnish</div>
+            <ul>
+              <li>Fresh cilantro (coriander)</li>
+              <li>Pickled red onions</li>
+              <li>Cracked black pepper</li>
+            </ul>
+
+          </div>
+        </section>
+
+        <section class="panel method">
+          <div class="panel-header">
+            <span class="icon">🍳</span>
+            Recipe
+          </div>
+          <div class="panel-body">
+            <ol>
+              <li>Start the coconut rice: combine the rice and olive oil in a small saucepan over medium-high heat. Cook, stirring occasionally, for 2–3 minutes until the rice is translucent and lightly golden. Add the water (it will bubble quickly), then stir in the coconut milk and salt. Bring to a boil, then reduce to the lowest heat, cover and simmer for 15–20 minutes until all liquid is absorbed.</li>
+              <li>Once the rice is cooked, remove the lid, fluff with a fork, and stir in the butter. Cover and let steam for a further 5–10 minutes while you cook the fish.</li>
+              <li>Pat the cod fillets completely dry with paper towel on all sides. Season generously with salt and pepper on both sides, then dust lightly with flour, shaking off any excess.</li>
+              <li>Heat the olive oil in a cast iron or stainless steel skillet over medium-high heat for 1 minute until glistening and hot. Carefully lay the cod fillets away from you into the pan. Cook untouched for 3–4 minutes per side until opaque and flaking easily. Transfer to a warm plate.</li>
+              <li>In the same skillet (or a small saucepan), reduce heat to medium. Add the lemon zest and lemon juice and stir for about 1 minute until warmed through. Add the butter and stir until melted into a creamy sauce. Remove from heat immediately.</li>
+              <li>Serve the cod over the coconut rice, drizzle generously with the lemon butter sauce, and garnish with fresh cilantro, pickled red onions, and cracked black pepper.</li>
+            </ol>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <section class="footer">
+      <div class="note-card">
+        <h3>Estimated Macros</h3>
+        <p>Per serving, based on 2 serves. Estimated using Woolworths AU ingredients.</p>
+        <div class="macro-grid">
+          <div class="macro">
+            <span class="num">680</span>
+            <span class="lab">Calories</span>
+          </div>
+          <div class="macro">
+            <span class="num">25g</span>
+            <span class="lab">Protein</span>
+          </div>
+          <div class="macro">
+            <span class="num">47g</span>
+            <span class="lab">Carbs</span>
+          </div>
+          <div class="macro">
+            <span class="num">42g</span>
+            <span class="lab">Fat</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="note-card">
+        <h3>Notes</h3>
+        <ul>
+          <li>Pat the cod very dry before cooking — excess moisture will cause it to steam rather than sear, preventing that golden crust.</li>
+          <li>Don't move the fish once it's in the pan. Let it cook undisturbed so it develops a proper crust and releases naturally.</li>
+          <li>Frozen cod works fine — just thaw completely overnight in the fridge and pat dry very thoroughly before cooking.</li>
+          <li>Halibut or tilapia are great substitutes if cod isn't available.</li>
+          <li>The fat count is higher due to the full-fat coconut milk and butter — swap lite coconut milk to bring it down significantly.</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
