@@ -74,20 +74,26 @@ Add a note in the Notes card if the swap meaningfully changes the dish’s textu
 - Do not deviate from the template’s layout, CSS, or structure.
 - Save the file to `recipe_htmls/FILENAME.html`.
 
-### 9. Output the index.html entry
+### 9. Show the final recipe and index.html entry — wait for approval
 
-After the file, always output the line to add to the recipes array in `index.html`:
+Present both to the user for review:
+
+1. The full recipe summary (ingredients, method, macros).
+2. The proposed `index.html` entry:
 
 ```js
 { title: "TITLE", file: "FILENAME.html", protein: "PROTEIN", time: "TIME", serves: X, cals: XXX,
   ingredients: ["INGREDIENT", "INGREDIENT", ...] },
 ```
 
-### 10. Show the final recipe and get approval before pushing
+**Do not save any files or push to GitHub until the user explicitly approves.**
 
-- Render/display the final recipe HTML to the user for review.
-- **Do not commit or push to GitHub until the user explicitly approves.**
-- Wait for the user to confirm before proceeding with any git operations.
+### 10. Save files and push after approval
+
+Once the user approves:
+1. Save the recipe HTML to `recipe_htmls/FILENAME.html`.
+2. Add the entry to the recipes array in `index.html`.
+3. Commit both files together and push to GitHub.
 
 -----
 
@@ -161,6 +167,8 @@ Examples:
 - [ ] Correct protein tag and emoji
 - [ ] Source link points to original URL
 - [ ] Back button links to `../index.html`
+- [ ] Full recipe summary and index.html entry shown to user before saving anything
+- [ ] User approval received
 - [ ] File saved to `recipe_htmls/`
-- [ ] index.html entry outputted
-- [ ] Final recipe shown to user and approval received before pushing to GitHub
+- [ ] index.html entry added
+- [ ] Both files committed and pushed to GitHub
