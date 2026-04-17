@@ -83,6 +83,12 @@ After the file, always output the line to add to the recipes array in `index.htm
   ingredients: ["INGREDIENT", "INGREDIENT", ...] },
 ```
 
+### 10. Show the final recipe and get approval before pushing
+
+- Render/display the final recipe HTML to the user for review.
+- **Do not commit or push to GitHub until the user explicitly approves.**
+- Wait for the user to confirm before proceeding with any git operations.
+
 -----
 
 ## Template Rules
@@ -157,3 +163,4 @@ Examples:
 - [ ] Back button links to `../index.html`
 - [ ] File saved to `recipe_htmls/`
 - [ ] index.html entry outputted
+- [ ] Final recipe shown to user and approval received before pushing to GitHub
