@@ -124,14 +124,34 @@
 .tag-leftover-chicken::before { content: '♻️ '; }
     .card-title { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
     .card-meta { font-size: 13px; color: var(--muted); }
+    .card-badges {
+      display: flex; flex-wrap: wrap; gap: 6px;
+      margin-top: 10px;
+    }
     .cook-count {
       display: inline-flex; align-items: center; gap: 4px;
-      margin-top: 10px;
       font-size: 12px; font-weight: 600;
       color: var(--accent); background: var(--chip);
       border: 1px solid #f0ded3; padding: 4px 10px;
       border-radius: 999px;
-      align-self: flex-start;
+    }
+    .pin-badge {
+      display: inline-flex; align-items: center; gap: 4px;
+      font-size: 12px; font-weight: 600;
+      color: var(--accent); background: var(--chip);
+      border: 1px solid #f0ded3; padding: 4px 10px;
+      border-radius: 999px;
+    }
+    .card-pinned {
+      background: linear-gradient(160deg, #fff 70%, #fef6f1 100%);
+      border-color: #f0ded3;
+    }
+    .section-header {
+      grid-column: 1 / -1;
+      font-size: 12px; font-weight: 600;
+      color: var(--muted); letter-spacing: .06em;
+      text-transform: uppercase;
+      padding: 8px 2px 4px;
     }
 
     .sort-row {
@@ -275,6 +295,7 @@ const recipes = [
     let activeTag = "all";
     let activeSort = "cooked-desc";
     let cookCounts = {};
+    let pinnedFiles = new Set();
 
     function setSort(s) {
       activeSort = s;
@@ -294,11 +315,26 @@ const recipes = [
 
     function setTag(t) { activeTag = t; renderFilters(); render(); }
 
+    function cardHtml(r, isPinned) {
+      const count = cookCounts[r.file] || 0;
+      const cookBadge = count > 0 ? `<span class="cook-count">🍳 ${count}</span>` : "";
+      const pinBadge = isPinned ? `<span class="pin-badge">📌 This week</span>` : "";
+      const badges = (cookBadge || pinBadge) ? `<div class="card-badges">${cookBadge}${pinBadge}</div>` : "";
+      return `
+        <a class="card${isPinned ? " card-pinned" : ""}" href="recipe_htmls/${r.file}">
+          <div class="card-body">
+            <span class="card-tag tag-${r.protein}">${r.protein}</span>
+            <p class="card-title">${r.title}</p>
+            <p class="card-meta">${r.time} &nbsp;·&nbsp; ${r.serves} serves &nbsp;·&nbsp; ${r.cals} kcal</p>
+          </div>
+          ${badges}
+        </a>`;
+    }
+
     function render() {
       const q = document.getElementById("search").value.toLowerCase().trim();
       const hint = document.getElementById("search-hint");
 
-      // Show hint only when query doesn't match any title but does match ingredients
       const anyTitleMatch = q && recipes.some(r => r.title.toLowerCase().includes(q));
       hint.style.display = (q && !anyTitleMatch) ? "block" : "none";
 
@@ -313,25 +349,29 @@ const recipes = [
       else if (activeSort === "cals-desc") filtered.sort((a, b) => b.cals - a.cals);
       else if (activeSort === "cooked-desc") filtered.sort((a, b) => (cookCounts[b.file] || 0) - (cookCounts[a.file] || 0));
       else if (activeSort === "cooked-asc") filtered.sort((a, b) => (cookCounts[a.file] || 0) - (cookCounts[b.file] || 0));
+
       document.getElementById("count").textContent =
         filtered.length + " recipe" + (filtered.length !== 1 ? "s" : "");
-      document.getElementById("grid").innerHTML = filtered.length
-        ? filtered.map(r => {
-            const count = cookCounts[r.file] || 0;
-            const cookBadge = count > 0
-              ? `<span class="cook-count">🍳 ${count}</span>`
-              : "";
-            return `
-            <a class="card" href="recipe_htmls/${r.file}">
-              <div class="card-body">
-                <span class="card-tag tag-${r.protein}">${r.protein}</span>
-                <p class="card-title">${r.title}</p>
-                <p class="card-meta">${r.time} &nbsp;·&nbsp; ${r.serves} serves &nbsp;·&nbsp; ${r.cals} kcal</p>
-              </div>
-              ${cookBadge}
-            </a>`;
-          }).join("")
-        : `<div class="empty">No recipes found. Try a different search.</div>`;
+
+      if (!filtered.length) {
+        document.getElementById("grid").innerHTML = `<div class="empty">No recipes found. Try a different search.</div>`;
+        return;
+      }
+
+      const pinned   = filtered.filter(r =>  pinnedFiles.has(r.file));
+      const unpinned = filtered.filter(r => !pinnedFiles.has(r.file));
+
+      let html = "";
+      if (pinned.length > 0) {
+        html += `<div class="section-header">📌 This week</div>`;
+        html += pinned.map(r => cardHtml(r, true)).join("");
+      }
+      if (unpinned.length > 0) {
+        if (pinned.length > 0) html += `<div class="section-header">All recipes</div>`;
+        html += unpinned.map(r => cardHtml(r, false)).join("");
+      }
+
+      document.getElementById("grid").innerHTML = html;
     }
 
     renderFilters();
@@ -357,6 +397,22 @@ const recipes = [
         render(); // re-render cards with cook counts
       })
       .catch(err => console.warn("Could not load cook counts:", err));
+
+    // Fetch pinned recipes from the Pin tab
+    const PIN_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQfwQp96tJdcpTwgRxY-z8AbNH6IVQ3toQisDCWAy-7AFx0yaERVwfsCHpv1zKKLTjN6RrFQGzw4Kxr/pub?gid=1218956679&single=true&output=csv";
+
+    fetch(PIN_CSV_URL)
+      .then(r => r.text())
+      .then(csv => {
+        const rows = csv.trim().split("\n").slice(1); // skip "Link" header
+        rows.forEach(row => {
+          const url = row.trim().replace(/"/g, "");
+          const filename = url.split("/").pop();
+          if (filename) pinnedFiles.add(filename);
+        });
+        render();
+      })
+      .catch(err => console.warn("Could not load pinned recipes:", err));
   </script>
 </body>
 </html>
