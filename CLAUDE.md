@@ -42,6 +42,11 @@ Always confirm before generating. Example:
 
 Scale all ingredients up or down to match the confirmed serving size.
 
+Convert any imperial measurements to metric:
+- Pounds (lbs) and ounces (oz) → grams (g)
+- Fluid ounces (fl oz) → millilitres (ml)
+- Use standard conversions: 1 oz = 28g, 1 lb = 454g, 1 fl oz = 30ml (round to the nearest 5g/ml for clean numbers)
+
 ### 5. Apply healthy ingredient swaps (silently)
 
 Make these substitutions automatically without flagging them, unless the calorie difference is significant:
