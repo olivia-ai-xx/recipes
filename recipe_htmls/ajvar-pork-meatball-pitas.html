@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ajvar Pork Meatball Pitas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cream:      #fdf8f2;
+      --cream2:     #f7f0e6;
+      --cream3:     #efe4d4;
+      --sand:       #e2d5c3;
+      --spice:      #c2622a;
+      --spice-lt:   #f5e8df;
+      --spice-mid:  #e8a882;
+      --turmeric:   #e8a020;
+      --turmeric-lt:#fef3dc;
+      --sage:       #7a9e7e;
+      --sage-lt:    #eaf2eb;
+      --text:       #2b1f14;
+      --text-mid:   #6b5440;
+      --text-lt:    #9c836a;
+      --white:      #ffffff;
+      --shadow-sm:  0 2px 8px rgba(80,40,10,.07);
+      --shadow:     0 8px 32px rgba(80,40,10,.10);
+      --shadow-lg:  0 20px 60px rgba(80,40,10,.13);
+      --r-sm: 14px;
+      --r:    22px;
+      --r-lg: 32px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      min-height: 100vh;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: radial-gradient(circle, var(--sand) 1px, transparent 1px);
+      background-size: 28px 28px;
+      opacity: 0.35;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .app {
+      position: relative;
+      z-index: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 32px 20px 56px;
+    }
+    .hero {
+      background: var(--white);
+      border-radius: var(--r-lg);
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+      border: 1px solid var(--cream3);
+    }
+    .hero-top {
+      padding: 36px 36px 28px;
+      background: linear-gradient(135deg, #fffcf8 0%, #fef5ea 60%, #fcecd8 100%);
+      border-bottom: 1px solid var(--cream3);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-text { position: relative; z-index: 1; }
+    .hero-top::after {
+      content: '';
+      position: absolute;
+      right: -60px; top: -60px;
+      width: 260px; height: 260px;
+      border-radius: 50%;
+      border: 32px solid rgba(194,98,42,.07);
+      pointer-events: none;
+    }
+    .hero-top::before {
+      content: '';
+      position: absolute;
+      right: 20px; top: 20px;
+      width: 140px; height: 140px;
+      border-radius: 50%;
+      border: 20px solid rgba(232,160,32,.08);
+      pointer-events: none;
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: var(--spice-lt);
+      color: var(--spice);
+      border: 1.5px solid var(--spice-mid);
+      padding: 7px 14px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+    h1 {
+      font-family: 'Lora', serif;
+      font-weight: 600;
+      font-size: clamp(32px, 5vw, 52px);
+      line-height: 1.08;
+      letter-spacing: -.02em;
+      margin: 18px 0 12px;
+      color: var(--text);
+    }
+    .eyebrow-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 0;
+    }
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-mid);
+      text-decoration: none;
+      background: var(--white);
+      border: 1px solid var(--sand);
+      padding: 7px 14px;
+      border-radius: 999px;
+      box-shadow: var(--shadow-sm);
+      transition: background 0.15s;
+    }
+    .back-btn:hover { background: var(--cream2); }
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-top: 28px;
+    }
+    .stat {
+      background: var(--white);
+      border: 1px solid var(--cream3);
+      border-radius: var(--r-sm);
+      padding: 16px 14px;
+      position: relative;
+      overflow: hidden;
+    }
+    .stat::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--spice), var(--turmeric));
+      border-radius: 3px 3px 0 0;
+    }
+    .stat .label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: var(--text-lt);
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+    .stat .value {
+      font-family: 'Lora', serif;
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.2;
+    }
+    .content {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      background: var(--cream2);
+    }
+    .panel { background: var(--white); }
+    .panel + .panel { border-left: 1px solid var(--cream3); }
+    .panel-header {
+      padding: 18px 24px 16px;
+      font-family: 'Lora', serif;
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: -.01em;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 1px solid var(--cream3);
+    }
+    .panel-header .icon {
+      width: 30px; height: 30px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+    }
+    .ingredients .panel-header { background: var(--sage-lt); }
+    .ingredients .panel-header .icon { background: var(--sage); color: white; }
+    .method .panel-header { background: var(--spice-lt); }
+    .method .panel-header .icon { background: var(--spice); color: white; }
+    .panel-body { padding: 22px 24px 26px; }
+    .section-title {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      color: var(--text-lt);
+      font-weight: 500;
+      margin: 18px 0 10px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--cream3);
+    }
+    .section-title:first-child { margin-top: 0; }
+    ul { list-style: none; padding: 0; margin: 0 0 4px; }
+    ul li {
+      padding: 7px 0 7px 18px;
+      position: relative;
+      font-size: 14px;
+      line-height: 1.5;
+      color: var(--text-mid);
+      border-bottom: 1px solid var(--cream2);
+    }
+    ul li:last-child { border-bottom: none; }
+    ul li::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 50%;
+      transform: translateY(-50%);
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--spice-mid);
+    }
+    ol { list-style: none; padding: 0; margin: 0; counter-reset: steps; }
+    ol li {
+      counter-increment: steps;
+      display: flex;
+      gap: 14px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--cream2);
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--text-mid);
+    }
+    ol li:last-child { border-bottom: none; }
+    ol li::before {
+      content: counter(steps);
+      min-width: 26px; height: 26px;
+      background: linear-gradient(135deg, var(--spice), var(--turmeric));
+      color: white;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 500;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .footer {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 16px;
+    }
+    .note-card {
+      background: var(--white);
+      border: 1px solid var(--cream3);
+      border-radius: var(--r);
+      box-shadow: var(--shadow-sm);
+      padding: 24px;
+    }
+    .note-card h3 {
+      font-family: 'Lora', serif;
+      font-size: 17px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: var(--text);
+    }
+    .note-card > p {
+      font-size: 13px;
+      color: var(--text-lt);
+      margin-bottom: 16px;
+      font-weight: 300;
+    }
+    .macro-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+    .macro {
+      text-align: center;
+      padding: 14px 8px;
+      border-radius: var(--r-sm);
+      border: 1px solid var(--cream3);
+    }
+    .macro:nth-child(1) { background: var(--turmeric-lt); border-color: #f5dfa0; }
+    .macro:nth-child(2) { background: var(--spice-lt);    border-color: var(--spice-mid); }
+    .macro:nth-child(3) { background: var(--sage-lt);     border-color: #b2d4b5; }
+    .macro:nth-child(4) { background: var(--cream2);      border-color: var(--sand); }
+    .macro .num {
+      display: block;
+      font-family: 'Lora', serif;
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+    .macro .lab {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--text-lt);
+      font-weight: 500;
+    }
+    @media (max-width: 760px) {
+      .stats, .content, .footer, .macro-grid { grid-template-columns: 1fr; }
+      .panel + .panel { border-left: none; border-top: 1px solid var(--cream3); }
+      .app { padding: 16px 14px 40px; }
+      .hero-top { padding: 24px 20px 20px; }
+      .panel-body { padding: 18px 20px 22px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <section class="hero">
+      <div class="hero-top">
+        <div class="hero-text">
+          <div class="eyebrow-row">
+            <a class="back-btn" href="../index.html">← My Recipes</a>
+            <div class="eyebrow">🐷 Pork</div>
+          </div>
+          <h1>Ajvar Pork Meatball Pitas</h1>
+          <div class="stats">
+            <div class="stat">
+              <div class="label">Servings</div>
+              <div class="value">2</div>
+            </div>
+            <div class="stat">
+              <div class="label">Time</div>
+              <div class="value">30 mins</div>
+            </div>
+            <div class="stat">
+              <div class="label">Main Ingredients</div>
+              <div class="value">Pork Mince, Ajvar, Pita</div>
+            </div>
+            <div class="stat">
+              <div class="label">Calories</div>
+              <div class="value">~700 kcal / serve</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <section class="panel ingredients">
+          <div class="panel-header">
+            <span class="icon">🥬</span>
+            Ingredients
+          </div>
+          <div class="panel-body">
+
+            <div class="section-title">Pork Meatballs</div>
+            <ul>
+              <li>300g lean pork mince</li>
+              <li>1 egg</li>
+              <li>30g panko breadcrumbs</li>
+              <li>2 cloves garlic, minced</li>
+              <li>1 tsp dried oregano</li>
+              <li>2 tbsp fresh flat-leaf parsley, finely chopped</li>
+              <li>½ tsp smoked paprika</li>
+            </ul>
+
+            <div class="section-title">Creamy Ajvar Sauce</div>
+            <ul>
+              <li>120g I Love Ajvar paprika relish</li>
+              <li>80g Woolworths light Greek yogurt</li>
+              <li>80ml chicken stock</li>
+              <li>1 clove garlic, minced</li>
+              <li>1 tbsp lemon juice</li>
+            </ul>
+
+            <div class="section-title">Cabbage Slaw</div>
+            <ul>
+              <li>150g green cabbage, thinly sliced</li>
+              <li>60g carrot, grated</li>
+              <li>2 tbsp lemon juice</li>
+              <li>1 tsp olive oil</li>
+            </ul>
+
+            <div class="section-title">To Serve</div>
+            <ul>
+              <li>2 Zeus Street Greek pita breads (Woolworths)</li>
+              <li>Fresh flat-leaf parsley</li>
+              <li>Lemon wedges</li>
+            </ul>
+
+          </div>
+        </section>
+
+        <section class="panel method">
+          <div class="panel-header">
+            <span class="icon">🍳</span>
+            Recipe
+          </div>
+          <div class="panel-body">
+            <ol>
+              <li>Combine the pork mince, egg, panko breadcrumbs, garlic, oregano, parsley, smoked paprika, and a generous pinch of salt and pepper in a bowl. Mix until just combined — don't overwork. Shape into 12 even meatballs (about 40g each).</li>
+              <li>Heat a drizzle of olive oil in a large frying pan over medium-high heat. Cook the meatballs for 10–12 minutes, turning every 2–3 minutes, until deep golden all over and cooked through with no pink inside.</li>
+              <li>While the meatballs cook, make the creamy ajvar sauce: stir together the ajvar, light Greek yogurt, chicken stock, garlic, and lemon juice until smooth. Season to taste with salt and pepper.</li>
+              <li>Toss the cabbage and carrot together. Drizzle with lemon juice and olive oil, season with salt and pepper, and toss well to coat. Set aside — the slaw will soften slightly as it sits, which is ideal.</li>
+              <li>Warm the pita breads in a dry pan for 1–2 minutes per side over medium heat until pliable and lightly charred, or wrap in foil and heat in the oven at 180°C for 5 minutes.</li>
+              <li>To assemble: spread a generous spoonful of creamy ajvar sauce over each pita. Pile on the slaw, then the meatballs (6 per serve). Spoon over a little extra sauce, scatter with fresh parsley, and serve with lemon wedges.</li>
+            </ol>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <section class="footer">
+      <div class="note-card">
+        <h3>Estimated Macros</h3>
+        <p>Per serving, based on 2 serves. Estimated using Woolworths AU ingredients.</p>
+        <div class="macro-grid">
+          <div class="macro">
+            <span class="num">700</span>
+            <span class="lab">Calories</span>
+          </div>
+          <div class="macro">
+            <span class="num">47g</span>
+            <span class="lab">Protein</span>
+          </div>
+          <div class="macro">
+            <span class="num">61g</span>
+            <span class="lab">Carbs</span>
+          </div>
+          <div class="macro">
+            <span class="num">29g</span>
+            <span class="lab">Fat</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="note-card">
+        <h3>Notes</h3>
+        <ul>
+          <li>Meatballs can be shaped a day ahead and refrigerated raw — cook straight from the fridge, adding 2 extra minutes to the cook time.</li>
+          <li>The creamy ajvar sauce doubles as a great dip or spread — make a double batch and keep refrigerated for up to 3 days.</li>
+          <li>Zeus Street Greek pita breads are stocked at Woolworths and are thicker and fluffier than standard flatbreads, making them ideal for loading up.</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
