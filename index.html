@@ -290,7 +290,13 @@ const recipes = [
   { title: "Juicy Chicken Breast (Cast Iron + Stock)", file: "juicy-chicken-breast-cast-iron-stock.html", protein: "chicken", time: "25 mins", serves: 1, cals: 325,
     ingredients: ["chicken breast", "chicken stock"] },
   { title: "No Bean Chili", file: "no-bean-chili.html", protein: "beef", time: "40 mins", serves: 6, cals: 420,
-    ingredients: ["ground beef", "diced tomatoes", "tomato sauce", "tomato paste"] },
+    ingredients: ["ground beef", "diced tomatoes", "passata"] },
+  { title: "Falafel Bowl", file: "falafel-bowl.html", protein: "vegetarian", time: "30 mins", serves: 2, cals: 595,
+    ingredients: ["falafel", "jasmine rice", "red cabbage", "carrot", "red onion", "ajvar", "Greek yogurt", "cucumber"] },
+  { title: "Ajvar Pork Meatball Pitas", file: "ajvar-pork-meatball-pitas.html", protein: "pork", time: "30 mins", serves: 2, cals: 700,
+    ingredients: ["pork mince", "ajvar", "Greek yogurt", "green cabbage", "carrot", "pita bread"] },
+  { title: "Crumbed Fish Fillet Wraps", file: "crumbed-fish-fillet-wraps.html", protein: "seafood", time: "20 mins", serves: 2, cals: 535,
+    ingredients: ["crumbed fish fillets", "iceberg lettuce", "red onion", "dill"] },
 ];
 
     const allTags = ["all", ...new Set(recipes.map(r => r.protein))];
