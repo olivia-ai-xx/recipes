@@ -10,6 +10,9 @@ This project is a recipe website hosted on GitHub Pages. When asked to generate 
 /
 ├── index.html               ← Homepage (recipes array lives here)
 ├── RECIPE_TEMPLATE.html     ← Master template — read this before every recipe
+├── all-recipes.html         ← Combined reference file (every recipe's name, macros, ingredients, method in one page) — for feeding to other Claude projects
+├── scripts/
+│   └── build_all_recipes.py ← Regenerates all-recipes.html from recipe_htmls/
 └── recipe_htmls/
     └── recipe-name.html     ← Individual recipe pages
 ```
@@ -17,6 +20,7 @@ This project is a recipe website hosted on GitHub Pages. When asked to generate 
 - Back button on all recipe pages links to: `../index.html`
 - Source link always points to the original recipe URL
 - All recipe HTML files go in: `recipe_htmls/`
+- `all-recipes.html` is a running combined list of every recipe (name, macros, ingredients, method). It must be regenerated every time a recipe is added, edited, or removed — see Step 10 below.
 
 -----
 
@@ -88,13 +92,18 @@ After the file, always output the line to add to the recipes array in `index.htm
   ingredients: ["INGREDIENT", "INGREDIENT", ...] },
 ```
 
-### 10. Show the final recipe and get approval before pushing
+### 10. Regenerate the combined reference file
+
+- Run `python3 scripts/build_all_recipes.py` from the repo root to rebuild `all-recipes.html` so it includes the new recipe.
+- This file is a running, single-page list of every recipe's name, macros, ingredients, and method — kept for feeding into other Claude projects. It must always be up to date, so regenerate it any time a recipe is added, edited, or removed.
+
+### 11. Show the final recipe and get approval before pushing
 
 - Render/display the final recipe HTML to the user for review.
 - **Do not commit or push to GitHub until the user explicitly approves.**
 - Wait for the user to confirm before proceeding with any git operations.
 
-### 11. After pushing, create a pull request automatically
+### 12. After pushing, create a pull request automatically
 
 Once commits are pushed, always create a PR via the GitHub MCP tool (`mcp__github__create_pull_request`) without waiting to be asked:
 - **owner:** `olivia-ai-xx` · **repo:** `recipes` · **base:** `main`
@@ -175,4 +184,5 @@ Examples:
 - [ ] Back button links to `../index.html`
 - [ ] File saved to `recipe_htmls/`
 - [ ] index.html entry outputted
+- [ ] `all-recipes.html` regenerated via `python3 scripts/build_all_recipes.py`
 - [ ] Final recipe shown to user and approval received before pushing to GitHub
