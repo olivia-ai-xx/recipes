@@ -51,8 +51,91 @@
       padding: 28px;
       margin-top: 20px;
     }
-    .card h2 { font-size: 18px; margin-bottom: 10px; }
-    .card p { font-size: 14px; color: var(--muted); line-height: 1.6; }
+    .card > h2 { font-size: 18px; display: flex; align-items: center; gap: 8px; }
+    .card > p.card-intro { font-size: 13.5px; color: var(--muted); margin-top: 6px; line-height: 1.5; }
+
+    .section-label {
+      font-size: 12.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em;
+      color: var(--muted); margin: 22px 0 10px;
+    }
+    .section-label:first-of-type { margin-top: 18px; }
+
+    /* Checklist rows (veg prep, protein/carb prep) */
+    .prep-grid { display: flex; flex-direction: column; gap: 10px; }
+    .prep-item {
+      display: flex; align-items: flex-start; gap: 12px;
+      background: var(--bg); border: 1px solid var(--line); border-radius: 14px;
+      padding: 12px 16px; cursor: pointer;
+    }
+    .prep-item input[type="checkbox"] {
+      accent-color: var(--accent); width: 18px; height: 18px;
+      margin-top: 2px; flex-shrink: 0; cursor: pointer;
+    }
+    .prep-text { display: flex; flex-direction: column; gap: 3px; }
+    .prep-qty { font-size: 14.5px; font-weight: 700; color: var(--text); }
+    .prep-note { font-size: 13px; color: var(--muted); line-height: 1.5; }
+    .prep-item input:checked + .prep-text { opacity: .42; }
+    .prep-item input:checked + .prep-text .prep-qty { text-decoration: line-through; }
+
+    /* Sauce / protein boxes */
+    .box-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; margin-top: 4px; }
+    .box {
+      border: 1px solid var(--line); border-left: 4px solid var(--accent);
+      border-radius: 14px; padding: 16px; background: var(--bg);
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    .box-title { font-size: 15px; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+    .box-title .box-icon { font-size: 17px; }
+    .box-recipe-tag {
+      align-self: flex-start;
+      background: var(--chip); color: var(--accent); border: 1px solid #f0ded3;
+      padding: 3px 10px; border-radius: 999px; font-size: 11.5px; font-weight: 600;
+    }
+    .ingredient-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+    .ingredient-list li label { display: flex; align-items: center; gap: 8px; font-size: 13.5px; cursor: pointer; }
+    .ingredient-list input[type="checkbox"] {
+      accent-color: var(--accent); width: 16px; height: 16px; flex-shrink: 0; cursor: pointer;
+    }
+    .ingredient-list input:checked + span { text-decoration: line-through; color: var(--muted); }
+    .box-method { font-size: 12.5px; color: var(--muted); line-height: 1.5; border-top: 1px dashed var(--line); padding-top: 8px; }
+    .shelf-life { font-size: 12.5px; color: var(--accent); font-weight: 600; }
+
+    /* Recipe bookmarks */
+    .recipe-detail {
+      border: 1px solid var(--line); border-radius: 14px; margin-top: 12px; overflow: hidden;
+    }
+    .recipe-detail summary {
+      list-style: none; cursor: pointer; padding: 14px 18px;
+      display: flex; align-items: center; justify-content: space-between; gap: 10px;
+      font-weight: 700; font-size: 14.5px; background: var(--chip); color: var(--accent);
+    }
+    .recipe-detail summary::-webkit-details-marker { display: none; }
+    .recipe-detail summary .toggle-icon { font-size: 15px; }
+    .recipe-detail[open] summary { border-bottom: 1px solid var(--line); }
+    .recipe-detail-body { padding: 20px; display: flex; flex-direction: column; gap: 18px; }
+    .recipe-detail-body h4 {
+      font-size: 12.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em;
+      color: var(--muted); margin-bottom: 8px;
+    }
+    .plain-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+    .plain-list li {
+      font-size: 13.5px; line-height: 1.6; color: var(--text);
+      padding-left: 16px; position: relative;
+    }
+    .plain-list li::before { content: "•"; position: absolute; left: 0; color: var(--accent); }
+
+    .order-list { display: flex; flex-direction: column; gap: 10px; margin-top: 4px; }
+    .order-item {
+      display: flex; gap: 14px; align-items: flex-start;
+      background: var(--bg); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px;
+    }
+    .order-num {
+      flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%;
+      background: var(--accent); color: #fff; font-weight: 700; font-size: 14px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .order-text strong { display: block; font-size: 14.5px; margin-bottom: 2px; }
+    .order-text span { font-size: 13px; color: var(--muted); line-height: 1.5; }
   </style>
 </head>
 <body>
@@ -63,17 +146,223 @@
         <div class="eyebrow">🧊 Weekly Meal Prep</div>
       </div>
       <h1>Meal Prep Guide</h1>
-      <p class="subtitle">No guide has been generated yet.</p>
+      <p class="subtitle">
+        Week of 14 August 2026 — Bang Bang Shrimp (2 serves), Cheat's Beef Pho (2 serves), and Chipotle Honey Chicken Bowl (2 serves).
+      </p>
     </div>
 
+    <!-- SUGGESTED COOK ORDER -->
     <div class="card">
-      <h2>Nothing here yet</h2>
-      <p>
-        Pin this week's recipes in the app, then open a Claude Code session on this
-        repo and run <strong>/meal-prep</strong>. It will ask how many servings you
-        want each pinned recipe to make, print a grocery list you can paste into
-        Apple Notes, and replace this page with that week's prep-ahead guide.
-      </p>
+      <h2>🗓️ Suggested Cook Order</h2>
+      <p class="card-intro">Ordered by how long each recipe's prepped-ahead components stay good in the fridge — most time-sensitive first.</p>
+      <div class="order-list">
+        <div class="order-item">
+          <div class="order-num">1</div>
+          <div class="order-text">
+            <strong>🍗 Chipotle Honey Chicken Bowl</strong>
+            <span>The chicken marinade is raw meat — food-safe for only ~2 days in the fridge, so cook this one first.</span>
+          </div>
+        </div>
+        <div class="order-item">
+          <div class="order-num">2</div>
+          <div class="order-text">
+            <strong>🥩 Cheat's Beef Pho</strong>
+            <span>The broth and beef are being made fresh this week rather than prepped ahead, so the only prepped items are sliced red onion and lime wedges, good for ~3–4 days.</span>
+          </div>
+        </div>
+        <div class="order-item">
+          <div class="order-num">3</div>
+          <div class="order-text">
+            <strong>🐟 Bang Bang Shrimp</strong>
+            <span>The bang bang sauce keeps ~4–5 days and the dry batter keeps for weeks, so this one has the most flexibility — cook it last.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VEGETABLE PREP -->
+    <div class="card">
+      <h2>🥕 Vegetable Prep</h2>
+      <p class="card-intro">Tick items off as you go — check a box and it grays out so you always know where you left off.</p>
+
+      <p class="section-label">Chop &amp; Peel</p>
+      <div class="prep-grid">
+        <label class="prep-item">
+          <input type="checkbox">
+          <span class="prep-text">
+            <span class="prep-qty">6 garlic cloves, peeled</span>
+            <span class="prep-note">2 for pho broth, 3 for chicken marinade, 1 for green sauce — keeps ~1 week in an airtight container in the fridge</span>
+          </span>
+        </label>
+        <label class="prep-item">
+          <input type="checkbox">
+          <span class="prep-text">
+            <span class="prep-qty">½ red onion, thinly sliced</span>
+            <span class="prep-note">for pho garnish — keeps ~3–4 days in an airtight container in the fridge</span>
+          </span>
+        </label>
+        <label class="prep-item">
+          <input type="checkbox">
+          <span class="prep-text">
+            <span class="prep-qty">½ lime, cut into wedges</span>
+            <span class="prep-note">for pho garnish — keeps ~3–4 days in an airtight container in the fridge</span>
+          </span>
+        </label>
+        <label class="prep-item">
+          <input type="checkbox">
+          <span class="prep-text">
+            <span class="prep-qty">Juice of 2 limes</span>
+            <span class="prep-note">1 for the chicken marinade, 1 for the green sauce — keeps ~4–5 days in an airtight container in the fridge</span>
+          </span>
+        </label>
+      </div>
+
+      <p class="section-label">Wash &amp; Clean</p>
+      <div class="prep-grid">
+        <label class="prep-item">
+          <input type="checkbox">
+          <span class="prep-text">
+            <span class="prep-qty">Coriander, washed &amp; dried</span>
+            <span class="prep-note">covers pho garnish, chicken bowl garnish, and the green sauce — wrap in damp paper towel in a sealed container, keeps ~1 week</span>
+          </span>
+        </label>
+      </div>
+    </div>
+
+    <!-- SAUCE & MARINADE PREP -->
+    <div class="card">
+      <h2>🥣 Sauce &amp; Marinade Prep</h2>
+      <p class="card-intro">Each box below is a self-contained ingredient list — check items off as you measure them in.</p>
+
+      <div class="box-grid">
+        <div class="box">
+          <div class="box-title"><span class="box-icon">🍤</span>Bang Bang Sauce</div>
+          <span class="box-recipe-tag">For: Bang Bang Shrimp</span>
+          <ul class="ingredient-list">
+            <li><label><input type="checkbox"><span>⅓ cup mayo</span></label></li>
+            <li><label><input type="checkbox"><span>3 tbsp Thai sweet chilli sauce</span></label></li>
+            <li><label><input type="checkbox"><span>2½ tbsp sriracha</span></label></li>
+            <li><label><input type="checkbox"><span>⅔ tbsp lemon juice</span></label></li>
+          </ul>
+          <p class="shelf-life">🧊 Keeps ~4–5 days airtight in the fridge</p>
+        </div>
+
+        <div class="box">
+          <div class="box-title"><span class="box-icon">🍤</span>Bang Bang Dry Batter</div>
+          <span class="box-recipe-tag">For: Bang Bang Shrimp</span>
+          <ul class="ingredient-list">
+            <li><label><input type="checkbox"><span>⅔ cup cornstarch</span></label></li>
+            <li><label><input type="checkbox"><span>1½ tsp garlic powder</span></label></li>
+            <li><label><input type="checkbox"><span>⅔ tsp onion powder</span></label></li>
+            <li><label><input type="checkbox"><span>⅓ tsp MSG (or salt)</span></label></li>
+          </ul>
+          <p class="shelf-life">🧊 Dry mix — fine to store airtight for the whole week</p>
+        </div>
+
+        <div class="box">
+          <div class="box-title"><span class="box-icon">🍗</span>Chipotle Honey Chicken Marinade</div>
+          <span class="box-recipe-tag">For: Chipotle Honey Chicken Bowl</span>
+          <ul class="ingredient-list">
+            <li><label><input type="checkbox"><span>1½ chipotle peppers in adobo</span></label></li>
+            <li><label><input type="checkbox"><span>1½ tbsp adobo sauce</span></label></li>
+            <li><label><input type="checkbox"><span>1 tbsp honey</span></label></li>
+            <li><label><input type="checkbox"><span>Juice of 1 lime (from veg prep)</span></label></li>
+            <li><label><input type="checkbox"><span>3 garlic cloves (from veg prep)</span></label></li>
+            <li><label><input type="checkbox"><span>¾ tbsp olive oil</span></label></li>
+            <li><label><input type="checkbox"><span>½ tsp salt</span></label></li>
+            <li><label><input type="checkbox"><span>¼ tsp pepper</span></label></li>
+          </ul>
+          <p class="box-method">Blend to a smooth marinade and pour over 455g chicken thighs.</p>
+          <p class="shelf-life">🧊 Raw marinating chicken keeps up to 2 days in the fridge before cooking</p>
+        </div>
+
+        <div class="box">
+          <div class="box-title"><span class="box-icon">🥑</span>Insane Green Sauce</div>
+          <span class="box-recipe-tag">For: Chipotle Honey Chicken Bowl</span>
+          <ul class="ingredient-list">
+            <li><label><input type="checkbox"><span>85g nonfat Greek yoghurt</span></label></li>
+            <li><label><input type="checkbox"><span>¼ cup coriander (from veg prep)</span></label></li>
+            <li><label><input type="checkbox"><span>Juice of 1 lime (from veg prep)</span></label></li>
+            <li><label><input type="checkbox"><span>2 tbsp pickled jalapeños</span></label></li>
+            <li><label><input type="checkbox"><span>1 garlic clove (from veg prep)</span></label></li>
+            <li><label><input type="checkbox"><span>Salt &amp; pepper, to taste</span></label></li>
+            <li><label><input type="checkbox"><span>Splash of water</span></label></li>
+          </ul>
+          <p class="box-method">Blend until smooth and creamy.</p>
+          <p class="shelf-life">🧊 Keeps ~4–5 days in an airtight container in the fridge</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- RECIPE DAY-OF GUIDES (collapsed bookmarks) -->
+    <div class="card">
+      <h2>📖 Recipe Day-Of Guides</h2>
+      <p class="card-intro">Click a recipe to open its full prep-ahead vs. cooking-day breakdown.</p>
+
+      <details class="recipe-detail">
+        <summary><span>🐟 Bang Bang Shrimp — 2 serves</span><span class="toggle-icon">＋</span></summary>
+        <div class="recipe-detail-body">
+          <div>
+            <h4>Prep Ahead (Sunday)</h4>
+            <ul class="plain-list">
+              <li>Bang bang sauce and dry batter — see Sauce &amp; Marinade Prep above</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Leave Until Cooking Day</h4>
+            <ul class="plain-list">
+              <li>Buttermilk soak — ⅔ cup buttermilk + ⅓ tbsp sriracha with 265g prawns, only needs 20 minutes, do it fresh</li>
+              <li>Battering and frying the prawns — must be done just before eating so they stay crispy</li>
+              <li>Tossing prawns in bang bang sauce and garnishing with chives/spring onion and chilli oil — assemble right before serving</li>
+            </ul>
+          </div>
+        </div>
+      </details>
+
+      <details class="recipe-detail">
+        <summary><span>🥩 Cheat's Beef Pho — 2 serves</span><span class="toggle-icon">＋</span></summary>
+        <div class="recipe-detail-body">
+          <div>
+            <h4>Prep Ahead (Sunday)</h4>
+            <ul class="plain-list">
+              <li>2 garlic cloves for the broth — see Vegetable Prep above</li>
+              <li>Sliced red onion, coriander, and lime wedges — see Vegetable Prep above</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Leave Until Cooking Day <span style="font-weight:400; color:var(--muted); text-transform:none; letter-spacing:normal;">(broth, noodles, and beef not prepped ahead this week, by request)</span></h4>
+            <ul class="plain-list">
+              <li>Cook and rinse 100g flat thin rice noodles — cook per packet instructions minus 2 minutes, rinse in cold water, drain</li>
+              <li>Make the broth: 1 litre low-sodium beef stock, 2 garlic cloves (from veg prep), 15g ginger, 1 star anise, 2 whole cloves, ½ tbsp fish sauce, ½ tbsp brown sugar — simmer 18 minutes, strain out the aromatics</li>
+              <li>Par-freeze 150g beef eye fillet ~30 minutes, then slice as thinly as possible (1–2mm)</li>
+              <li>Dropping the sliced beef into hot broth for 30 seconds — do this fresh so it finishes cooking properly when served</li>
+              <li>1 handful bean sprouts — very perishable, buy/wash close to cooking day rather than prepping Sunday</li>
+              <li>Final assembly and garnishing (bean sprouts, coriander, lime, red onion, 30ml hoisin, sriracha)</li>
+            </ul>
+          </div>
+        </div>
+      </details>
+
+      <details class="recipe-detail">
+        <summary><span>🍗 Chipotle Honey Chicken Bowl — 2 serves</span><span class="toggle-icon">＋</span></summary>
+        <div class="recipe-detail-body">
+          <div>
+            <h4>Prep Ahead (Sunday)</h4>
+            <ul class="plain-list">
+              <li>Chicken marinade and green sauce — see Sauce &amp; Marinade Prep above</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Leave Until Cooking Day</h4>
+            <ul class="plain-list">
+              <li>Cooking the chicken — best done fresh for proper caramelisation and texture</li>
+              <li>Cooking the ½ cup jasmine rice</li>
+              <li>Avocado/guacamole (1 tbsp per bowl) — prep just before serving so it doesn't brown</li>
+              <li>Pico de gallo (1 tbsp per bowl) — best made fresh so it doesn't turn watery</li>
+            </ul>
+          </div>
+        </div>
+      </details>
     </div>
   </main>
 </body>
